@@ -14,7 +14,7 @@ our $VERSION = '0.01';
 
 {
     my $ua;
-    sub ua {
+    sub _ua {
         return $ua if $ua;
         $ua = WWW::Mechanize->new(
             env_proxy => 1,
@@ -27,8 +27,8 @@ our $VERSION = '0.01';
 }
 
 sub currency_exchange_rate {
-    ua->get('http://www.esunbank.com.tw/info/rate_spot_exchange.aspx');
-    my $content = ua->content;
+    _ua->get('http://www.esunbank.com.tw/info/rate_spot_exchange.aspx');
+    my $content = _ua->content;
 
     # For Debuging:
     # io("/tmp/esun-currency.html")->utf8->print($content);
@@ -47,35 +47,35 @@ sub currency_exchange_rate {
         my @cell = map { trim } @$row;
 
         push @ret,
-            { mesh @columns, @{[ translate($cell[0]), @cell[0..2] ]} },
-            { mesh @columns, @{[ translate($cell[3]), @cell[3..5] ]} };
+            { mesh @columns, @{[ _t($cell[0]), @cell[0..2] ]} },
+            { mesh @columns, @{[ _t($cell[3]), @cell[3..5] ]} };
     }
 
     return \@ret;
 }
 
 my %dict = (
-    美元現金   => "USD CASH",
-    美元一般   => "USD",
-    港幣現金   => "HKD CASH",
-    港幣       => "HKD",
-    日圓現金   => "JPY CASH",
-    日圓       => "JPY",
-    歐元現金   => "EUR CASH",
-    歐元       => "EUR",
-    英鎊       => "GBP",
-    澳幣       => "AUD",
-    加拿大幣   => "CAD",
-    瑞士法郎   => "SWF",
-    新加坡幣   => "SGD",
-    泰國銖     => "THB",
-    紐西蘭幣   => "NZD",
-    瑞典幣     => "SEK",
-    南非幣     => "ZAR",
-    人民幣現金 => "MCY CASH"
+    '美元現金'   => "USD CASH",
+    '美元一般'   => "USD",
+    '港幣現金'   => "HKD CASH",
+    '港幣'       => "HKD",
+    '日圓現金'   => "JPY CASH",
+    '日圓'       => "JPY",
+    '歐元現金'   => "EUR CASH",
+    '歐元'       => "EUR",
+    '英鎊'       => "GBP",
+    '澳幣'       => "AUD",
+    '加拿大幣'   => "CAD",
+    '瑞士法郎'   => "SWF",
+    '新加坡幣'   => "SGD",
+    '泰國銖'     => "THB",
+    '紐西蘭幣'   => "NZD",
+    '瑞典幣'     => "SEK",
+    '南非幣'     => "ZAR",
+    '人民幣現金' => "MCY CASH"
 );
 
-sub translate {
+sub _t {
     my $zh = shift;
     return $dict{$zh} || $zh;
 }

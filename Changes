@@ -1,5 +1,5 @@
 Revision history for Finance-Bank-Esun-TW
 
-0.0.1  Mon Dec 15 11:01:34 2008
-       Initial release.
+0.01:
+  - Implements only currency_exchange_rate
 
