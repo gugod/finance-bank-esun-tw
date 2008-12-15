@@ -85,47 +85,51 @@ __END__
 
 =head1 NAME
 
-Finance::Bank::Esun::TW - [One line description of module's purpose here]
-
+Finance::Bank::Esun::TW - Check Taiwan Esun bank info
 
 =head1 VERSION
 
-This document describes Finance::Bank::Esun::TW version 0.0.1
-
+This document describes Finance::Bank::Esun::TW version 0.01
 
 =head1 SYNOPSIS
 
     use Finance::Bank::Esun::TW;
+    use YAML;
 
+    print YAML::Dump(Finance::Bank::Esun::TW->currency_exchange_rate);
 
 =head1 DESCRIPTION
 
+This module provides a rudimentary interface to the online Esun Bank
+system at L<http://www.esunbank.com.tw>
 
 =head1 INTERFACE 
 
-
 =over
 
-=item new()
+=item currency_exchange_rate
+
+Return the extracted table (as an array of hash) of currency exchange
+rate from L<http://www.esunbank.com.tw/info/rate_spot_exchange.aspx>
+
+It returns an arrayref with each item inside is a hashref looks like:
+
+    {
+        zh_currency_name => "美金現金",
+        en_currency_name => "USD CASH",
+        buy_at           => 33.06,
+        sell_at          => 33.56
+    }
 
 =back
 
-=head1 DIAGNOSTICS
+=head1 WARNING
 
-=over
-
-=item C<< Error message here, perhaps with %s placeholders >>
-
-[Description of error here]
-
-=item C<< Another error message here >>
-
-[Description of error here]
-
-[Et cetera, et cetera]
-
-=back
-
+This is code for B<online banking>, and that means B<your money>, and
+that means B<BE CAREFUL>. You are encouraged, nay, expected, to audit
+the source of this module yourself to reassure yourself that I am not
+doing anything untoward with your banking data. This software is useful
+to me, but is provided under B<NO GUARANTEE>, explicit or implied.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
@@ -133,7 +137,8 @@ Finance::Bank::Esun::TW requires no configuration files or environment variables
 
 =head1 DEPENDENCIES
 
-None.
+L<WWW::Mechanize>, L<Crypt::SSLeay>, L<IO::Socket::SSL>,
+L<Text::Trim>, L<HTML::TableExtract>, L<List::MoreUtils>
 
 =head1 INCOMPATIBILITIES
 
@@ -155,11 +160,11 @@ Kang-min Liu  C<< <gugod@gugod.org> >>
 
 =head1 LICENCE AND COPYRIGHT
 
-Copyright (c) 2008, Kang-min Liu C<< <gugod@gugod.org> >>. All rights reserved.
+Copyright (c) 2008, Kang-min Liu C<< <gugod@gugod.org> >>.
 
-This module is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself. See L<perlartistic>.
+This is free software, licensed under:
 
+    The MIT (X11) License
 
 =head1 DISCLAIMER OF WARRANTY
 
