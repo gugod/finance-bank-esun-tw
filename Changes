@@ -1,5 +1,7 @@
 Revision history for Finance-Bank-Esun-TW
 
+0.02:
+  - update currency_exchange_rate following the bank website html update
+
 0.01:
   - Implements only currency_exchange_rate
-

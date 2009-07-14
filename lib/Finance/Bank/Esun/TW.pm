@@ -6,11 +6,11 @@ use strict;
 use WWW::Mechanize;
 use utf8;
 use List::MoreUtils qw(mesh);
-# use IO::All;
+
 use Text::Trim;
 use HTML::TableExtract;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 {
     my $ua;
@@ -21,20 +21,22 @@ our $VERSION = '0.01';
             keep_alive => 1,
             timeout => 60,
         );
-        $ua->agent_alias("Windows IE 6");
+
         return $ua;
     }
 }
+
+# use IO::All;
 
 sub currency_exchange_rate {
     _ua->get('http://www.esunbank.com.tw/info/rate_spot_exchange.aspx');
     my $content = _ua->content;
 
-    # For Debuging:
     # io("/tmp/esun-currency.html")->utf8->print($content);
+    # For Debuging:
     # my $content = io("/tmp/esun-currency.html")->utf8->all;
 
-    my $te = HTML::TableExtract->new(attribs => { class => "default-color1" });
+    my $te = HTML::TableExtract->new(attribs => { class => "datatable" });
     $te->parse($content);
 
     my @ret;
@@ -103,7 +105,7 @@ This document describes Finance::Bank::Esun::TW version 0.01
 This module provides a rudimentary interface to the online Esun Bank
 system at L<http://www.esunbank.com.tw>
 
-=head1 INTERFACE 
+=head1 INTERFACE
 
 =over
 
@@ -160,7 +162,7 @@ Kang-min Liu  C<< <gugod@gugod.org> >>
 
 =head1 LICENCE AND COPYRIGHT
 
-Copyright (c) 2008, Kang-min Liu C<< <gugod@gugod.org> >>.
+Copyright (c) 2008, 2009 Kang-min Liu C<< <gugod@gugod.org> >>.
 
 This is free software, licensed under:
 
