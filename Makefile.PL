@@ -12,6 +12,8 @@ requires
     'HTML::TableExtract' => 1.50,
     'List::MoreUtils' => 0;
 
+auto_install;
+
 WriteAll;
 
 
